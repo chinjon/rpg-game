@@ -1,0 +1,12 @@
+Structure of Game
+
+- make a few characters available at game selection
+- each character will have "stats", each unique to them
+  - IF POSSIBLE: each will have unique dialogue with one another
+- all of these "stats" and abilities will be stored in objects for each character
+
+
+THEME IDEAS
+- POKEMON??
+- Final Fantasy Clone
+- 
