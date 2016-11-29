@@ -22,16 +22,16 @@ var characterTwo = {
   "base health" : 300,
   "base attack" : 5,
   "base defense" : 23,
-  "base speed" : 2,
-  "attack" : function(opponent) {
-    if(opponent["base defense"] < this["base attack"]) {
-      opponent["base health"] -= this["base attack"];
-      console.log("That did some damage.");
-    } else {
-      opponent["base health"] -= 1;
-      console.log("That was not very effective.");
-    }
-  }
+  "base speed" : 2
+  // "attack" : function(opponent) {
+  //   if(opponent["base defense"] < this["base attack"]) {
+  //     opponent["base health"] -= this["base attack"];
+  //     console.log("That did some damage.");
+  //   } else {
+  //     opponent["base health"] -= 1;
+  //     console.log("That was not very effective.");
+  //   }
+  // }
 }
 
 function basicAttack(defender, attacker) {
