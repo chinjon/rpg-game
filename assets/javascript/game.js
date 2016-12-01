@@ -34,7 +34,9 @@ var characterTwo = {
     }
 
 }
-
+var diceRoll = Math.floor(Math.random() * 100); // algorithm to determine if ability hit??
+// factor in accuracy somehow with a character accuracy stat
+console.log(diceRoll);
 
 // need to figure out how to live update stats
 
@@ -42,12 +44,18 @@ $(document).ready(function() {
     var availStats = ["base health", "base attack", "base defense", "base speed"];
     var size = Object.keys(characterTwo["stats"]).length;
 
-    function displayStats() {
+    function displayCharacterStats(character) {
         for (var i = 0; i < size; i++) {
-            var characterStat = $("<div>").addClass("characterStats").data("stat-point", characterTwo["stats"][availStats[i]]).html(availStats[i] + ": " + characterTwo.stats[availStats[i]]).appendTo("#characterStats");
+            var characterStat = $("<div>").addClass("characterStats").data("stat-point", character["stats"][availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo("#characterStats");
         }
     }
-    displayStats();
+    function displayEnemyStats(character) {
+        for (var i = 0; i < size; i++) {
+            var characterStat = $("<div>").addClass("characterStats").data("stat-point", character["stats"][availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo("#enemyStats");
+        }
+    }
+    displayCharacterStats(characterTwo);
+    displayEnemyStats(characterOne);
 
 })
 
@@ -55,8 +63,8 @@ $(document).ready(function() {
 
 
 function basicAttack(defender, attacker) {
-    if (defender["base defense"] < attacker["base attack"]) {
-        defender["base health"] -= attacker["base attack"];
+    if (defender.stats["base defense"] < attacker.stats["base attack"]) {
+        defender.stats["base health"] -= attacker.stats["base attack"];
         console.log("Attack was successful");
     } else {
         defender["base health"] -= 1;
@@ -64,6 +72,6 @@ function basicAttack(defender, attacker) {
     }
 }
 
-console.log(characterOne["base health"]);
+console.log(characterOne.stats["base health"]);
 basicAttack(characterOne, characterTwo);
-console.log(characterOne["base health"]);
+console.log(characterOne.stats["base health"]);
