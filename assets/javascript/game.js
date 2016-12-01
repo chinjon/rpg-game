@@ -2,37 +2,48 @@ var characterOne = {
   "name" : "character one",
   "class" : "fighter",
   "base health" : 200,
-  "base attack" : 14,
+  "base attack" : 30,
   "base defense" : 9,
-  "base speed" : 4,
-  "attack": function(opponent) {
-    if(opponent["base defense"] < this["base attack"]) {
-      opponent["base health"] -= this["base attack"];
-      console.log("That did some damage.");
-    } else {
-      opponent["base health"] -= 1;
-      console.log("That was not very effective.");
-    }
-  }
+  "base speed" : 4
 }
 
 var characterTwo = {
   "name" : "character one",
   "class" : "fighter",
-  "base health" : 300,
-  "base attack" : 5,
-  "base defense" : 23,
-  "base speed" : 2
-  // "attack" : function(opponent) {
-  //   if(opponent["base defense"] < this["base attack"]) {
-  //     opponent["base health"] -= this["base attack"];
-  //     console.log("That did some damage.");
-  //   } else {
-  //     opponent["base health"] -= 1;
-  //     console.log("That was not very effective.");
-  //   }
-  // }
+  "character selected" : false,
+  "stats" : {
+    "base health" : 300,
+    "base attack" : 5,
+    "base defense" : 26,
+    "base speed" : 11
+  },
+
+  "levelUp": function() {
+    this.stats["base health"] += 25;
+    this.stats["base attack"] += 3;
+    this.stats["base defense"] += 6;
+    this.stats["base speed"] += 4;
+  }
+
 }
+
+
+// need to figure out how to live update stats
+
+$(document).ready(function() {
+  var availStats = ["base health", "base attack", "base defense" , "base speed"];
+  var size = Object.keys(characterTwo["stats"]).length;
+  function displayStats() {
+    for(var i = 0; i < size; i++) {
+      var characterStat = $("<div>").addClass("characterStats").data("stat-point", characterTwo["stats"][availStats[i]]).html(availStats[i] + ": " + characterTwo.stats[availStats[i]]).appendTo("#characterStats");
+    }
+  }
+  displayStats();
+
+})
+
+// var size = Object.keys(myObj).length; // captures the length of the object
+
 
 function basicAttack(defender, attacker) {
   if(defender["base defense"] < attacker["base attack"]) {
