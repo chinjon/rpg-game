@@ -9,7 +9,8 @@ var characterOne = {
         "base health": 200,
         "base attack": 30,
         "base defense": 9,
-        "base speed": 4
+        "base speed": 4,
+        "base accuracy": 55
     },
     "levelUp": function() {
         this.stats["base health"] += 10;
@@ -27,7 +28,8 @@ var characterTwo = {
         "base health": 300,
         "base attack": 5,
         "base defense": 26,
-        "base speed": 11
+        "base speed": 11,
+        "base accuracy" : 67
     },
     "levelUp": function() {
         this.stats["base health"] += 25;
@@ -37,13 +39,16 @@ var characterTwo = {
     }
 
 }
-var diceRoll = Math.floor(Math.random() * 100); // algorithm to determine if ability hit??
+function diceRoll() {
+  var roll = Math.floor(Math.random() * 100); // algorithm to determine if ability hit??
+  console.log(roll);
+}
 // factor in accuracy somehow with a character accuracy stat
-console.log(diceRoll);
+
 
 // need to figure out how to live update stats
 
-    var availStats = ["base health", "base attack", "base defense", "base speed"];
+    var availStats = ["base health", "base attack", "base defense", "base speed", "base accuacy"];
     var size = Object.keys(characterTwo["stats"]).length;
 
     function displayCharacterStats(character) {
@@ -58,15 +63,20 @@ console.log(diceRoll);
         }
     }
 
+// defender.stats["base defense"] < attacker.stats["base attack"]
 
     function basicAttack(defender, attacker) {
-        if (defender.stats["base defense"] < attacker.stats["base attack"]) {
+
+      var roll = Math.floor(Math.random() * attacker.stats["base accuracy"]); // algorithm to determine if ability hit??
+      console.log(roll);
+        if (roll > 55) {
             defender.stats["base health"] -= attacker.stats["base attack"];
-            console.log("Attack was successful");
+            console.log("Attack was a hit");
+            $("#battleFeedback").html = "Attack was a hit."
         } else {
-            defender.stats["base health"] -= 1;
-            console.log("Attack was not very effective.");
-            console.log(defender.stats["base health"]);
+            console.log("Attack was a miss");
+            $('#battleFeedback').html = "Attack was a miss.";
+            //console.log(defender.stats["base health"]);
         }
     }
     displayCharacterStats(characterTwo);
@@ -78,9 +88,7 @@ console.log(diceRoll);
         displayEnemyStats(characterOne);
     })
 
-    console.log(characterOne.stats["base health"]);
-    basicAttack(characterOne, characterTwo);
-    console.log(characterOne.stats["base health"]);
+
 
 })
 

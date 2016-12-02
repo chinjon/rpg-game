@@ -2,40 +2,40 @@
 <html>
 
 <head>
-  <title>RPG GAME</title>
-  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <title>RPG GAME</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
-  <div class="container">
-    <div>
-    <button class="btn btn-info">Character Select</button>
-    <button class="btn btn-default" id="attack">Attack</button>
-  </div>
-<div class="container">
-  <div class='row'>
-  <div id="characterStats" class="col-md-4">
-  </div>
-  <div id="enemyStats" class="col-md-4">
-  </div>
-</div>
-</div>
-</div>
+    <div class="container" id="mainSpace">
+        <div class="row">
+            <div class="col-lg-4">
+                <!-- <button class="btn btn-info">Character Select</button> -->
+                <div id="characterStats">
+                </div>
+                <div class="characterButtons">
+                    <button class="btn btn-danger" id="attack">Attack</button>
+                </div>
+            </div>
+            <div id="enemyStats" class="col-lg-4 col-lg-offset-3">
+            </div>
+        </div>
+        <div class="container">
+            <div class='row'>
+                <div id="battleFeedback"></div>
+            </div>
+        </div>
+    </div>
 
 
 
-  <script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-  <script
-  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-  crossorigin="anonymous"></script>
-  <script src="assets/javascript/game.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="assets/javascript/game.js"></script>
 </body>
 
 </html>

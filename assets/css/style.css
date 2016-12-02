@@ -1,0 +1,11 @@
+#mainSpace {
+  margin: 60px auto 30px auto;
+}
+
+body {
+  font-size: 19px;
+}
+
+.characterButtons {
+  margin-top: 15px; 
+}
