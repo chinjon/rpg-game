@@ -1,3 +1,6 @@
+
+$(document).ready(function() {
+
 var characterOne = {
     "name": "character one",
     "class": "fighter",
@@ -40,7 +43,6 @@ console.log(diceRoll);
 
 // need to figure out how to live update stats
 
-$(document).ready(function() {
     var availStats = ["base health", "base attack", "base defense", "base speed"];
     var size = Object.keys(characterTwo["stats"]).length;
 
@@ -50,28 +52,36 @@ $(document).ready(function() {
         }
     }
     function displayEnemyStats(character) {
+
         for (var i = 0; i < size; i++) {
             var characterStat = $("<div>").addClass("characterStats").data("stat-point", character["stats"][availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo("#enemyStats");
+        }
+    }
+
+
+    function basicAttack(defender, attacker) {
+        if (defender.stats["base defense"] < attacker.stats["base attack"]) {
+            defender.stats["base health"] -= attacker.stats["base attack"];
+            console.log("Attack was successful");
+        } else {
+            defender.stats["base health"] -= 1;
+            console.log("Attack was not very effective.");
+            console.log(defender.stats["base health"]);
         }
     }
     displayCharacterStats(characterTwo);
     displayEnemyStats(characterOne);
 
+    $("#attack").on("click", function() {
+        basicAttack(characterOne, characterTwo);
+        $("#enemyStats").empty();
+        displayEnemyStats(characterOne);
+    })
+
+    console.log(characterOne.stats["base health"]);
+    basicAttack(characterOne, characterTwo);
+    console.log(characterOne.stats["base health"]);
+
 })
 
 // var size = Object.keys(myObj).length; // captures the length of the object
-
-
-function basicAttack(defender, attacker) {
-    if (defender.stats["base defense"] < attacker.stats["base attack"]) {
-        defender.stats["base health"] -= attacker.stats["base attack"];
-        console.log("Attack was successful");
-    } else {
-        defender["base health"] -= 1;
-        console.log("Attack was not very effective.");
-    }
-}
-
-console.log(characterOne.stats["base health"]);
-basicAttack(characterOne, characterTwo);
-console.log(characterOne.stats["base health"]);
