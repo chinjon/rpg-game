@@ -84,6 +84,7 @@ var characterTwo = {
         }
     } else {
         defender.stats["base health"] = 0;
+        $("#enemyHealth").attr("style", "width: "+ 0+ "%");
         $('#battleFeedback').text("Defeated.");
     }
     }
