@@ -65,18 +65,16 @@ var characterTwo = {
 
       var roll = Math.floor(Math.random() * attacker.stats["base accuracy"]); // algorithm to determine if ability hit??
       console.log(roll);
-
-
         var criticalHit = Math.floor(Math.random() * attacker.stats["critical chance"]);
-
-
-
+      if(defender.stats["base health"] > 0) {
         if (roll > 40 && criticalHit > 25) {
           defender.stats["base health"] -= attacker.stats["base attack"]*2.5;
           console.log("Attack was a critical hit");
+          $("#enemyHealth").attr("width", defender.stats["base health"]);
           $("#battleFeedback").text("Attack was a hit.");
         } else if(roll > 40) {
           defender.stats["base health"] -= attacker.stats["base attack"];
+          $("#enemyHealth").attr("style", "width: "+ defender.stats["base health"]+ "%");
           console.log("Attack was a hit");
           $("#battleFeedback").text("Attack was a hit.");
         } else {
@@ -84,6 +82,10 @@ var characterTwo = {
             $('#battleFeedback').text("Attack was a miss.");
             //console.log(defender.stats["base health"]);
         }
+    } else {
+        defender.stats["base health"] = 0;
+        $('#battleFeedback').text("Defeated.");
+    }
     }
     displayCharacterStats(characterTwo);
     displayEnemyStats(characterOne);

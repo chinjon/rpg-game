@@ -1,11 +1,37 @@
+/****** SPRITES ANIMATION ******/
+/*http://blog.teamtreehouse.com/css-sprite-sheet-animations-steps*/
+/*https://www.kirupa.com/html5/sprite_sheet_animations_using_only_css.htm*/
+ /*SPIRTE GAMES
+  http://spritedatabase.net/game/1591
+  http://spritedatabase.net/game/20
+  */
+
 #mainSpace {
   margin: 60px auto 30px auto;
 }
+
+#charactersSpace {
+  margin-top: 75px;
+  height: 100px;
+}
+
+/*#userChar {
+  height: 74px;
+  display: block;
+  width: 53.3px;
+  background-image: url('../images/goku-test.png');
+  background-repeat: no-repeat;
+  animation: play 0.55s steps(4) infinite;
+}
+
+@keyframes play {
+   100% { background-position: -222px; }
+}*/
 
 body {
   font-size: 19px;
 }
 
 .characterButtons {
-  margin-top: 15px; 
+  margin-top: 15px;
 }

@@ -8,12 +8,21 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link href="assets/css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
     <div class="container" id="mainSpace">
+        <div class="row" id="charactersSpace">
+            <div class="col-lg-3" id="userChar">
+            </div>
+            <div class="col-lg-offset-6">
+            </div>
+            <div class="col-lg-3" id="enemyChar">
+            </div>
+        </div>
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <!-- <button class="btn btn-info">Character Select</button> -->
                 <div id="characterStats">
                 </div>
@@ -21,8 +30,17 @@
                     <button class="btn btn-danger" id="attack">Attack</button>
                 </div>
             </div>
-            <div id="enemyStats" class="col-lg-4 col-lg-offset-3">
+            <div id="enemyStats" class="col-lg-3 col-lg-offset-6">
             </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-3 col-lg-offset-9">
+            <div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" id="enemyHealth">
+    <span class="sr-only">60% Complete</span>
+  </div>
+</div>
+          </div>
         </div>
         <div class="container">
             <div class='row'>
