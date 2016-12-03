@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 
 var characterOne = {
@@ -6,11 +5,12 @@ var characterOne = {
     "class": "fighter",
     "character selected": false,
     "stats": {
-        "base health": 200,
+        "base health": 100,
         "base attack": 30,
         "base defense": 9,
         "base speed": 4,
-        "base accuracy": 55
+        "base accuracy": 55,
+        "critical chance": 10
     },
     "levelUp": function() {
         this.stats["base health"] += 10;
@@ -25,11 +25,12 @@ var characterTwo = {
     "class": "fighter",
     "character selected": false,
     "stats": {
-        "base health": 300,
-        "base attack": 5,
+        "base health": 200,
+        "base attack": 15,
         "base defense": 26,
         "base speed": 11,
-        "base accuracy" : 67
+        "base accuracy" : 67,
+        "critical chance" : 40
     },
     "levelUp": function() {
         this.stats["base health"] += 25;
@@ -39,16 +40,11 @@ var characterTwo = {
     }
 
 }
-function diceRoll() {
-  var roll = Math.floor(Math.random() * 100); // algorithm to determine if ability hit??
-  console.log(roll);
-}
-// factor in accuracy somehow with a character accuracy stat
 
 
-// need to figure out how to live update stats
 
-    var availStats = ["base health", "base attack", "base defense", "base speed", "base accuacy"];
+
+    var availStats = ["base health", "base attack", "base defense", "base speed", "base accuacy", "critical chance"];
     var size = Object.keys(characterTwo["stats"]).length;
 
     function displayCharacterStats(character) {
@@ -69,13 +65,23 @@ function diceRoll() {
 
       var roll = Math.floor(Math.random() * attacker.stats["base accuracy"]); // algorithm to determine if ability hit??
       console.log(roll);
-        if (roll > 55) {
-            defender.stats["base health"] -= attacker.stats["base attack"];
-            console.log("Attack was a hit");
-            $("#battleFeedback").html = "Attack was a hit."
+
+
+        var criticalHit = Math.floor(Math.random() * attacker.stats["critical chance"]);
+
+
+
+        if (roll > 40 && criticalHit > 25) {
+          defender.stats["base health"] -= attacker.stats["base attack"]*2.5;
+          console.log("Attack was a critical hit");
+          $("#battleFeedback").text("Attack was a hit.");
+        } else if(roll > 40) {
+          defender.stats["base health"] -= attacker.stats["base attack"];
+          console.log("Attack was a hit");
+          $("#battleFeedback").text("Attack was a hit.");
         } else {
             console.log("Attack was a miss");
-            $('#battleFeedback').html = "Attack was a miss.";
+            $('#battleFeedback').text("Attack was a miss.");
             //console.log(defender.stats["base health"]);
         }
     }
@@ -93,3 +99,13 @@ function diceRoll() {
 })
 
 // var size = Object.keys(myObj).length; // captures the length of the object
+
+// function diceRoll() {
+//   var roll = Math.floor(Math.random() * 100); // algorithm to determine if ability hit??
+//   console.log(roll);
+// }
+// factor in accuracy somehow with a character accuracy stat
+
+// function critChance() {
+//   var criticalHit = Math.floor(Math.random() * attack.stats["critChance"];
+// }
