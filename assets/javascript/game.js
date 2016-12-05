@@ -83,8 +83,6 @@ var enemyThree = {
 
 
 
-
-
     var availStats = ["base health", "base attack", "base defense", "base speed", "base accuacy", "critical chance"];
     var size = Object.keys(characterTwo["stats"]).length;
 
