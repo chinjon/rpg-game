@@ -3,6 +3,7 @@ $(document).ready(function() {
 var characterOne = {
     "name": "character one",
     "class": "fighter",
+    "ultimate meter": 0,
     "character selected": false,
     "stats": {
         "base health": 100,
@@ -23,6 +24,7 @@ var characterOne = {
 var characterTwo = {
     "name": "character one",
     "class": "fighter",
+    "ultimate meter" : 0,
     "character selected": false,
     "stats": {
         "base health": 200,
@@ -40,6 +42,47 @@ var characterTwo = {
     }
 
 }
+
+
+
+var enemyOne = {
+  "name": "enemy one",
+  "current enemy": false,
+  "character defeated": false,
+  "stats" : {
+    "base health": 50,
+    "base attack": 10,
+    "base defense": 5,
+    "base speed": 3
+  }
+}
+
+var enemyTwo = {
+  "name": "enemy two",
+  "current enemy": false,
+  "character defeated": false,
+  "stats" : {
+    "base health": 100,
+    "base attack": 20,
+    "base defense": 15,
+    "base speed": 6
+  }
+}
+
+var enemyThree = {
+  "name": "enemy three",
+  "current enemy": false,
+  "character defeated": false,
+  "stats" : {
+    "base health": 200,
+    "base attack": 30,
+    "base defense": 20,
+    "base speed": 3
+  }
+}
+
+
+
 
 
     var availStats = ["base health", "base attack", "base defense", "base speed", "base accuacy", "critical chance"];
