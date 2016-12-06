@@ -3,6 +3,14 @@ $(document).ready(function() {
 $("#healthBars").hide(); // keeps elements hidden
 $(".characterButtons").hide(); // keeps elements hidden
 
+function hideSection(section) {
+  $(section).hide();
+}
+
+function removeSection(section) {
+  $(section).remove();
+}
+
 var characterSelected = false;
 
     var availStats = ["base health", "base attack", "base defense", "base speed", "base accuracy", "critical chance"];
@@ -73,6 +81,17 @@ var characterSelected = false;
 
       $("#characterOne").on("click", function() {
         characterOne["character selected"] = true;
+        characterTwo["character selected"] = false;
+      });
+
+      $("#characterTwo").on("click", function() {
+        characterTwo["character selected"] = true;
+        characterOne["character selected"] = false;
+      })
+
+
+      $("#characterSelectionConfirm").on("click", function(){
+        
       })
     }
 
