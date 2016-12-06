@@ -15,17 +15,21 @@
   height: 100px;
 }
 
+
+#healthBars {
+  margin: 20px 0;
+}
 /*#userChar {
-  height: 74px;
+  height: 500px;
   display: block;
-  width: 53.3px;
-  background-image: url('../images/goku-test.png');
+  width: 390px;
+  background-image: url('../images/test.png');
   background-repeat: no-repeat;
   animation: play 0.55s steps(4) infinite;
 }
 
 @keyframes play {
-   100% { background-position: -222px; }
+   100% { background-position: -3140px; }
 }*/
 
 body {
