@@ -1,10 +1,20 @@
 $(document).ready(function() {
 
+$("#healthBars").hide(); // keeps elements hidden
+$(".characterButtons").hide(); // keeps elements hidden
+
+var characterSelected = false;
+
+    var availStats = ["base health", "base attack", "base defense", "base speed", "base accuracy", "critical chance"];
+
+// append image to div: http://stackoverflow.com/questions/16432001/how-to-append-image-using-jquery-append
+
     var characterOne = {
         "name": "character one",
         "class": "fighter",
         "ultimate meter": 0,
         "character selected": false,
+        "image": "http://placehold.it/250x250",
         "stats": {
             "base health": 100,
             "base attack": 30,
@@ -26,6 +36,7 @@ $(document).ready(function() {
         "class": "fighter",
         "ultimate meter": 0,
         "character selected": false,
+        "image": "http://placehold.it/250x250",
         "stats": {
             "base health": 200,
             "base attack": 15,
@@ -43,8 +54,36 @@ $(document).ready(function() {
 
     }
 
+
+        function displayCharacterStats(character, area) {
+          $(area).html('<div><img src="' + character.image + '"></div>');
+              var size = Object.keys(character.stats).length;
+            for (var i = 0; i < size; i++) {
+                var characterStat = $("<div>").addClass("characterStats").data("stat-point", character.stats[availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo(area);
+            }
+        }
+
+
+    var characterSelectArray = [characterOne, characterTwo];
+
+    function characterSelect() {
+
+      displayCharacterStats(characterOne, "#characterOne");
+      displayCharacterStats(characterTwo, "#characterTwo");
+
+      $("#characterOne").on("click", function() {
+        characterOne["character selected"] = true;
+      })
+    }
+
+
+    characterSelect();
+
     function enemyAttack(enemy) {
-        var roll = Math.floor(Math.random() * enemy.stats["base accuracy"])
+        var roll = Math.floor(Math.random() * enemy.stats["base accuracy"]);
+        // if(roll > 30) {
+        //
+        // }
     }
 
 
@@ -88,15 +127,11 @@ $(document).ready(function() {
     }
 
 
+var enemyArray = ["enemyOne", "enemyTwo", "EnemyThree"];
 
-    var availStats = ["base health", "base attack", "base defense", "base speed", "base accuracy", "critical chance"];
-    var size = Object.keys(characterTwo["stats"]).length;
 
-    function displayCharacterStats(character) {
-        for (var i = 0; i < size; i++) {
-            var characterStat = $("<div>").addClass("characterStats").data("stat-point", character["stats"][availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo("#characterStats");
-        }
-    }
+
+
 
     function displayEnemyStats(character) {
 
@@ -107,54 +142,56 @@ $(document).ready(function() {
 
     // defender.stats["base defense"] < attacker.stats["base attack"]
 
-    function basicAttack(defender, attacker) {
-
-        var roll = Math.floor(Math.random() * attacker.stats["base accuracy"]); // algorithm to determine if ability hit??
-        console.log(roll);
-        var criticalHit = Math.floor(Math.random() * attacker.stats["critical chance"]);
-        if (defender.stats["base health"] > 0) {
-            if (roll > 40 && criticalHit > 25) {
-
-                if ((defender.stats["base health"] - attacker.stats["base attack"] * 2.5) < 0) {
-                    defender.stats["base health"] = 0;
-                    $("#enemyHealth").attr("style", "width: 0%");
-                } else {
-
-                    defender.stats["base health"] -= attacker.stats["base attack"] * 2.5;
-                    console.log("Attack was a critical hit");
-                    $("#enemyHealth").attr("style", "width: " + defender.stats["base health"]+"%");
-                    $("#battleFeedback").text("Attack was a hit.");
-                }
-            } else if (roll > 40) {
-              if ((defender.stats["base health"] - attacker.stats["base attack"]) < 0) {
-                defender.stats["base health"] = 0;
-                $("#enemyHealth").attr("style", "width: 0%");
-
-              } else {
-                defender.stats["base health"] -= attacker.stats["base attack"];
-                $("#enemyHealth").attr("style", "width: " + defender.stats["base health"] + "%");
-                console.log("Attack was a hit");
-                $("#battleFeedback").text("Attack was a hit.");
-              }
-            } else {
-                console.log("Attack was a miss");
-                $('#battleFeedback').text("Attack was a miss.");
-                //console.log(defender.stats["base health"]);
-            }
-        } else {
-            defender.stats["base health"] = 0;
-            $("#enemyHealth").attr("style", "width: %");
-            $('#battleFeedback').text("Defeated.");
-        }
-    }
-    displayCharacterStats(characterTwo);
-    displayEnemyStats(characterOne);
-
-    $("#attack").on("click", function() {
-        basicAttack(characterOne, characterTwo);
-        $("#enemyStats").empty();
-        displayEnemyStats(characterOne);
-    })
+    // function basicAttack(defender, attacker) {
+    //
+    //     var roll = Math.floor(Math.random() * attacker.stats["base accuracy"]); // algorithm to determine if ability hit??
+    //     console.log(roll);
+    //     var criticalHit = Math.floor(Math.random() * attacker.stats["critical chance"]);
+    //     if (defender.stats["base health"] > 0) {
+    //         if (roll > 40 && criticalHit > 25) {
+    //
+    //             if ((defender.stats["base health"] - attacker.stats["base attack"] * 2.5) < 0) {
+    //                 defender.stats["base health"] = 0;
+    //                 $("#enemyHealth").attr("style", "width: 0%");
+    //             } else {
+    //
+    //                 defender.stats["base health"] -= attacker.stats["base attack"] * 2.5;
+    //                 console.log("Attack was a critical hit");
+    //                 $("#enemyHealth").attr("style", "width: " + defender.stats["base health"]+"%");
+    //                 $("#battleFeedback").text("Attack was a hit.");
+    //             }
+    //         } else if (roll > 40) {
+    //           if ((defender.stats["base health"] - attacker.stats["base attack"]) < 0) {
+    //             defender.stats["base health"] = 0;
+    //             $("#enemyHealth").attr("style", "width: 0%");
+    //
+    //           } else {
+    //             defender.stats["base health"] -= attacker.stats["base attack"];
+    //             $("#enemyHealth").attr("style", "width: " + defender.stats["base health"] + "%");
+    //             console.log("Attack was a hit");
+    //             $("#battleFeedback").text("Attack was a hit.");
+    //           }
+    //         } else {
+    //             console.log("Attack was a miss");
+    //             $('#battleFeedback').text("Attack was a miss.");
+    //             //console.log(defender.stats["base health"]);
+    //         }
+    //     } else {
+    //         defender.stats["base health"] = 0;
+    //         $("#enemyHealth").attr("style", "width: %");
+    //         $('#battleFeedback').text("Defeated.");
+    //     }
+    // }
+    //
+    //
+    // displayCharacterStats(characterTwo, "#characterStats");
+    // displayEnemyStats(characterOne);
+    //
+    // $("#attack").on("click", function() {
+    //     basicAttack(characterOne, characterTwo);
+    //     $("#enemyStats").empty();
+    //     displayEnemyStats(characterOne);
+    // })
 
 
 

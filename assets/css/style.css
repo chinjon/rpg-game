@@ -1,3 +1,37 @@
+/*font-family: 'Inconsolata', monospace;
+font-family: 'Roboto', sans-serif;*/
+
+#mainSpace {
+  margin: 60px auto 30px auto;
+}
+
+
+#charactersSpace {
+  margin-top: 75px;
+  height: 100px;
+}
+
+#characterSelect {
+  font-family: 'Inconsolata', monospace;
+  font-size: 25px;
+}
+
+
+#healthBars {
+  margin: 20px 0;
+}
+
+
+body {
+  font-size: 19px;
+  font-family: 'Bungee', sans-serif;
+}
+
+.characterButtons {
+  margin-top: 15px;
+}
+
+
 /****** SPRITES ANIMATION ******/
 /*http://blog.teamtreehouse.com/css-sprite-sheet-animations-steps*/
 /*https://www.kirupa.com/html5/sprite_sheet_animations_using_only_css.htm*/
@@ -6,36 +40,15 @@
   http://spritedatabase.net/game/20
   */
 
-#mainSpace {
-  margin: 60px auto 30px auto;
-}
+  /*#userChar {
+    height: 500px;
+    display: block;
+    width: 390px;
+    background-image: url('../images/test.png');
+    background-repeat: no-repeat;
+    animation: play 0.55s steps(4) infinite;
+  }
 
-#charactersSpace {
-  margin-top: 75px;
-  height: 100px;
-}
-
-
-#healthBars {
-  margin: 20px 0;
-}
-/*#userChar {
-  height: 500px;
-  display: block;
-  width: 390px;
-  background-image: url('../images/test.png');
-  background-repeat: no-repeat;
-  animation: play 0.55s steps(4) infinite;
-}
-
-@keyframes play {
-   100% { background-position: -3140px; }
-}*/
-
-body {
-  font-size: 19px;
-}
-
-.characterButtons {
-  margin-top: 15px;
-}
+  @keyframes play {
+     100% { background-position: -3140px; }
+  }*/
