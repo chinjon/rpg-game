@@ -3,9 +3,6 @@ $(document).ready(function () {
 var characterSelected = "characterOne";
 console.log("Character selected: " + characterSelected);
 
-    $("#healthBars").hide(); // keeps elements hidden
-    $(".characterButtons").hide(); // keeps elements hidden
-
     function hideSection(section) {
         $(section).hide();
     }
@@ -17,7 +14,8 @@ console.log("Character selected: " + characterSelected);
     function showSection(section) {
         $(section).show();
     }
-
+hideSection("#healthBars");
+hideSection(".characterButtons");
 
 
     var characterSelected = false;
@@ -83,6 +81,7 @@ console.log("Character selected: " + characterSelected);
     var enemyArray = ["enemyOne", "enemyTwo", "EnemyThree"];
 
     function displayEnemyStats(character, area) {
+        $(area).prepend('<div><img src="' + character.image + '"></div>');
         var size = Object.keys(character.stats).length;
         for (var i = 0; i < size; i++) {
             var characterStat = $("<div>").addClass("characterStats").data("stat-point", character["stats"][availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo(area);
@@ -125,6 +124,8 @@ console.log("Character selected: " + characterSelected);
             removeSection("#characterSelect");
             showSection("#charactersSpace");
             showBattle(characterSelect);
+            showSection("#healthBars");
+            showSection(".characterButtons");
         })
     }
 
@@ -186,7 +187,8 @@ console.log("Character selected: " + characterSelected);
 
 
     // defender.stats["base defense"] < attacker.stats["base attack"]
-
+            // NEED TO SWITCH PARAMETERS
+            // NEED TO MAKE AUTO ATTACK FOR COMPUTER
     // function basicAttack(defender, attacker) {
     //
     //     var roll = Math.floor(Math.random() * attacker.stats["base accuracy"]); // algorithm to determine if ability hit??
