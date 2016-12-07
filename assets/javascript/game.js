@@ -1,21 +1,29 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-$("#healthBars").hide(); // keeps elements hidden
-$(".characterButtons").hide(); // keeps elements hidden
+    $("#healthBars").hide(); // keeps elements hidden
+    $(".characterButtons").hide(); // keeps elements hidden
 
-function hideSection(section) {
-  $(section).hide();
-}
+    function hideSection(section) {
+        $(section).hide();
+    }
 
-function removeSection(section) {
-  $(section).remove();
-}
+    function removeSection(section) {
+        $(section).remove();
+    }
 
-var characterSelected = false;
+    function showSection(section) {
+        $(section).show();
+    }
+
+    $( ".charSelect" ).click(function() {
+  $( ".charSelect" ).select("highlight");
+});
+
+    var characterSelected = false;
 
     var availStats = ["base health", "base attack", "base defense", "base speed", "base accuracy", "critical chance"];
 
-// append image to div: http://stackoverflow.com/questions/16432001/how-to-append-image-using-jquery-append
+    // append image to div: http://stackoverflow.com/questions/16432001/how-to-append-image-using-jquery-append
 
     var characterOne = {
         "name": "character one",
@@ -31,7 +39,7 @@ var characterSelected = false;
             "base accuracy": 55,
             "critical chance": 10
         },
-        "levelUp": function() {
+        "levelUp": function () {
             this.stats["base health"] += 10;
             this.stats["base attack"] += 10;
             this.stats["base defense"] += 3;
@@ -53,7 +61,7 @@ var characterSelected = false;
             "base accuracy": 67,
             "critical chance": 40
         },
-        "levelUp": function() {
+        "levelUp": function () {
             this.stats["base health"] += 25;
             this.stats["base attack"] += 3;
             this.stats["base defense"] += 6;
@@ -63,36 +71,37 @@ var characterSelected = false;
     }
 
 
-        function displayCharacterStats(character, area) {
-          $(area).html('<div><img src="' + character.image + '"></div>');
-              var size = Object.keys(character.stats).length;
-            for (var i = 0; i < size; i++) {
-                var characterStat = $("<div>").addClass("characterStats").data("stat-point", character.stats[availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo(area);
-            }
+    function displayCharacterStats(character, area) {
+        $(area).html('<div><img src="' + character.image + '"></div>');
+        var size = Object.keys(character.stats).length;
+        for (var i = 0; i < size; i++) {
+            var characterStat = $("<div>").addClass("characterStats").data("stat-point", character.stats[availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo(area);
         }
+    }
 
 
     var characterSelectArray = [characterOne, characterTwo];
 
     function characterSelect() {
 
-      displayCharacterStats(characterOne, "#characterOne");
-      displayCharacterStats(characterTwo, "#characterTwo");
+        displayCharacterStats(characterOne, "#characterOne");
+        displayCharacterStats(characterTwo, "#characterTwo");
 
-      $("#characterOne").on("click", function() {
-        characterOne["character selected"] = true;
-        characterTwo["character selected"] = false;
-      });
+        $("#characterOne").on("click", function () {
+            characterOne["character selected"] = true;
+            characterTwo["character selected"] = false;
+        });
 
-      $("#characterTwo").on("click", function() {
-        characterTwo["character selected"] = true;
-        characterOne["character selected"] = false;
-      })
+        $("#characterTwo").on("click", function () {
+            characterTwo["character selected"] = true;
+            characterOne["character selected"] = false;
+        })
 
 
-      $("#characterSelectionConfirm").on("click", function(){
-        
-      })
+        $("#characterSelectConfirm").on("click", function () {
+            removeSection("#characterSelect");
+            showSection("#charactersSpace");
+        })
     }
 
 
@@ -105,6 +114,11 @@ var characterSelected = false;
         // }
     }
 
+    function showBattle(character) {
+      showSection("#charactersSpace");
+      displayCharacterStats(character);
+      displayEnemyStats()
+    }
 
     var enemyOne = {
         "name": "enemy one",
@@ -146,11 +160,7 @@ var characterSelected = false;
     }
 
 
-var enemyArray = ["enemyOne", "enemyTwo", "EnemyThree"];
-
-
-
-
+    var enemyArray = ["enemyOne", "enemyTwo", "EnemyThree"];
 
     function displayEnemyStats(character) {
 
