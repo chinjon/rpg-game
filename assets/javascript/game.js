@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+var characterSelected = "characterOne";
+console.log("Character selected: " + characterSelected);
+
     $("#healthBars").hide(); // keeps elements hidden
     $(".characterButtons").hide(); // keeps elements hidden
 
@@ -15,9 +18,7 @@ $(document).ready(function () {
         $(section).show();
     }
 
-    $( ".charSelect" ).click(function() {
-  $( ".charSelect" ).select("highlight");
-});
+
 
     var characterSelected = false;
 
@@ -79,7 +80,19 @@ $(document).ready(function () {
         }
     }
 
+    var enemyArray = ["enemyOne", "enemyTwo", "EnemyThree"];
 
+    function displayEnemyStats(character, area) {
+        var size = Object.keys(character.stats).length;
+        for (var i = 0; i < size; i++) {
+            var characterStat = $("<div>").addClass("characterStats").data("stat-point", character["stats"][availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo(area);
+        }
+    }
+    function showBattle(characterSelect) {
+      showSection("#charactersSpace");
+      displayCharacterStats(characterSelect, "#userChar");
+      displayEnemyStats(enemyOne, "#enemyChar")
+    }
     var characterSelectArray = [characterOne, characterTwo];
 
     function characterSelect() {
@@ -88,19 +101,30 @@ $(document).ready(function () {
         displayCharacterStats(characterTwo, "#characterTwo");
 
         $("#characterOne").on("click", function () {
+            $("#characterOne").attr("class", "hightlightChar col-lg-3");
+            $("#characterTwo").attr("class", "col-lg-3 col-lg-offset-6");
+            // need to make more specific
+            // might be too "crude" of a solution for highlighting only one character
             characterOne["character selected"] = true;
             characterTwo["character selected"] = false;
+            characterSelect = characterOne;
+            console.log("Character selected: " + characterSelect);
         });
 
         $("#characterTwo").on("click", function () {
+            $("#characterTwo").attr("class", "hightlightChar col-lg-3 col-lg-offset-6");
+            $("#characterOne").attr("class", "col-lg-3");
             characterTwo["character selected"] = true;
             characterOne["character selected"] = false;
+            characterSelect = characterTwo;
+            console.log("Character selected: " + characterSelect);
         })
 
 
         $("#characterSelectConfirm").on("click", function () {
             removeSection("#characterSelect");
             showSection("#charactersSpace");
+            showBattle(characterSelect);
         })
     }
 
@@ -114,16 +138,13 @@ $(document).ready(function () {
         // }
     }
 
-    function showBattle(character) {
-      showSection("#charactersSpace");
-      displayCharacterStats(character);
-      displayEnemyStats()
-    }
+
 
     var enemyOne = {
         "name": "enemy one",
         "current enemy": false,
         "character defeated": false,
+        "image": "http://placehold.it/250x250",
         "stats": {
             "base health": 50,
             "base attack": 10,
@@ -137,6 +158,7 @@ $(document).ready(function () {
         "name": "enemy two",
         "current enemy": false,
         "character defeated": false,
+        "image": "http://placehold.it/250x250",
         "stats": {
             "base health": 100,
             "base attack": 20,
@@ -150,6 +172,7 @@ $(document).ready(function () {
         "name": "enemy three",
         "current enemy": false,
         "character defeated": false,
+        "image": "http://placehold.it/250x250",
         "stats": {
             "base health": 200,
             "base attack": 30,
@@ -160,14 +183,7 @@ $(document).ready(function () {
     }
 
 
-    var enemyArray = ["enemyOne", "enemyTwo", "EnemyThree"];
 
-    function displayEnemyStats(character) {
-
-        for (var i = 0; i < size; i++) {
-            var characterStat = $("<div>").addClass("characterStats").data("stat-point", character["stats"][availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo("#enemyStats");
-        }
-    }
 
     // defender.stats["base defense"] < attacker.stats["base attack"]
 

@@ -16,11 +16,19 @@ font-family: 'Roboto', sans-serif;*/
   font-size: 25px;
 }
 
+.hightlightChar {
+  color: #c0392b;
+  border: solid 5px #f1c40f;
+  padding: 10px;
+}
 
 #healthBars {
   margin: 20px 0;
 }
 
+.instructions {
+  color: #c0392b;
+}
 
 body {
   font-size: 19px;
