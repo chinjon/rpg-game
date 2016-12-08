@@ -20,7 +20,7 @@ hideSection("#healthBars");
 hideSection(".characterButtons");
 
 
-
+var roll = 0;
 
     var availStats = ["base health", "base attack", "base defense", "base speed", "base accuracy", "critical chance"];
 
@@ -140,9 +140,10 @@ hideSection(".characterButtons");
             var characterStat = $("<div>").addClass("characterStats").data("stat-point", character["stats"][availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo(area);
         }
     }
-    function showBattle(characterSelect) {
+
+    function showBattle(characterSelected) {
       showSection("#charactersSpace");
-      displayCharacterStats(characterSelect, "#userChar");
+      displayCharacterStats(characterSelected, "#userChar");
       displayEnemyStats(enemyOne, "#enemyChar")
     }
     var characterSelectArray = [characterOne, characterTwo];
@@ -183,8 +184,9 @@ hideSection(".characterButtons");
     }
 
     function basicAttack(defender, attacker) {
-
-        var roll = Math.floor(Math.random() * attacker.stats["base accuracy"]); // algorithm to determine if ability hit??
+  
+        roll = Math.floor(Math.random() * attacker.stats["base accuracy"]);
+        // algorithm to determine if ability hit??
         console.log(roll);
         var criticalHit = Math.floor(Math.random() * attacker.stats["critical chance"]);
         if (defender.stats["base health"] > 0) {
