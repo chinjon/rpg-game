@@ -2,6 +2,20 @@ $(document).ready(function () {
 
 var characterSelected = "characterOne";
 var userMadeSelection = false;
+var characterStartHP = characterSelected["start health"];
+$("#playerStartHP").html(characterStartHP);
+
+function characterShake(character){
+    $(character).effect("shake");
+}
+
+function characterDefeated(character){
+    $(character).fadeOut( "fast", function() {
+    });
+}
+
+var currentEnemy = "enemyOne";
+
 console.log("Character selected: " + characterSelected);
 
     function hideSection(section) {
@@ -32,6 +46,7 @@ var roll = 0;
         "class": "fighter",
         "ultimate meter": 0,
         "character selected": false,
+        "start health": 100,
         "image": "http://placehold.it/250x250",
         "stats": {
             "base health": 100,
@@ -54,6 +69,7 @@ var roll = 0;
         "class": "fighter",
         "ultimate meter": 0,
         "character selected": false,
+        "start health": 200,
         "image": "http://placehold.it/250x250",
         "stats": {
             "base health": 200,
@@ -76,6 +92,7 @@ var roll = 0;
         "name": "enemy one",
         "current enemy": false,
         "character defeated": false,
+        "start health": 50,
         "image": "http://placehold.it/250x250",
         "stats": {
             "base health": 50,
@@ -90,6 +107,7 @@ var roll = 0;
         "name": "enemy two",
         "current enemy": false,
         "character defeated": false,
+        "start health": 100,
         "image": "http://placehold.it/250x250",
         "stats": {
             "base health": 100,
@@ -104,6 +122,7 @@ var roll = 0;
         "name": "enemy three",
         "current enemy": false,
         "character defeated": false,
+        "start health": 200,
         "image": "http://placehold.it/250x250",
         "stats": {
             "base health": 200,
@@ -116,11 +135,6 @@ var roll = 0;
 
 
     // NEED TO OVERHAUL CONDITIONALS
-
-
-
-
-
 
 
     function displayCharacterStats(character, area) {
@@ -145,7 +159,9 @@ var roll = 0;
     function showBattle(characterSelected) {
       showSection("#charactersSpace");
       displayCharacterStats(characterSelected, "#userChar");
-      displayEnemyStats(enemyOne, "#enemyChar")
+      displayEnemyStats(enemyOne, "#enemyChar");
+      $("#enemyStartHP").html(enemyOne["start health"]);
+      $("#enemyCurrentHP").html(enemyOne.stats["base health"]);
     }
     var characterSelectArray = [characterOne, characterTwo];
 
@@ -163,6 +179,8 @@ var roll = 0;
             characterTwo["character selected"] = false;
             userMadeSelection = true;
             characterSelected = characterOne;
+            characterStartHP = characterSelected["start health"];
+            $("#playerStartHP").html(characterStartHP);
             console.log("Character selected: characterOne");
         });
 
@@ -173,6 +191,8 @@ var roll = 0;
             characterOne["character selected"] = false;
             userMadeSelection = true;
             characterSelected = characterTwo;
+            characterStartHP = characterSelected["start health"];
+            $("#playerStartHP").html(characterStartHP);
             console.log("Character selected: characterTwo");
         })
 
@@ -182,6 +202,7 @@ var roll = 0;
                 removeSection("#characterSelect");
                 showSection("#charactersSpace");
                 showBattle(characterSelected);
+                $("#playerCurrentHP").html(characterSelected.stats["base health"]);
                 showSection("#healthBars");
                 showSection(".characterButtons");
             } else {
@@ -191,7 +212,7 @@ var roll = 0;
     }
 
     function basicAttack(defender, attacker) {
-
+        var damage = 0;
         roll = Math.floor(Math.random() * attacker.stats["base accuracy"]);
         // algorithm to determine if ability hit??
         console.log(roll);
@@ -200,45 +221,64 @@ var roll = 0;
             if (roll > 40 && criticalHit > 25) {
 
                 if ((defender.stats["base health"] - attacker.stats["base attack"] * 2.5) <= 0) {
+                    damage = attack.stats["base attack"] * 2.5;
                     defender.stats["base health"] = 0;
-                    $("#enemyHP").html("0");
+                    $("#enemyCurrentHP").html(defender.stats["base health"]);
                     $("#enemyHealth").attr("style", "width: 0%");
+                    characterShake("#enemyChar");
+                    $("#battleFeedback").text("Attack was a critical hit and did " + damage + "HP of damage!");
+                    characterDefeated("#enemyChar");
                 } else {
-
-                    defender.stats["base health"] -= attacker.stats["base attack"] * 2.5;
+                    damage = attacker.stats["base attack"] * 2.5;
+                    defender.stats["base health"] -= damage;
                     console.log("Attack was a critical hit");
+                    $("#enemyCurrentHP").html(defender.stats["base health"]);
+                    characterShake("#enemyChar");
                     $("#enemyHealth").attr("style", "width: " + defender.stats["base health"]+"%");
-                    $("#enemyHP").html(defender.stats["base health"]);
-                    $("#battleFeedback").text("Attack was a hit.");
+                    $("#battleFeedback").text("Attack was a critical hit and did " + damage + "HP of damage!");
+
                 }
             } else if (roll > 40) {
               if ((defender.stats["base health"] - attacker.stats["base attack"]) <= 0) {
+                damage = attacker.stats["base attack"];
                 defender.stats["base health"] = 0;
-                $("#enemyHP").html("0");
+                $("#enemyCurrentHP").html(defender.stats["base health"]);
+                characterShake("#enemyChar");
                 $("#enemyHealth").attr("style", "width: 0%");
-
+                $("#battleFeedback").text("Attack was a hit and did " + damage + "HP of damage!");
+                characterDefeated("#enemyChar");
+                // need to comment with effect of this conditional
               } else {
-                defender.stats["base health"] -= attacker.stats["base attack"];
+                damage = attacker.stats["base attack"];
+                defender.stats["base health"] -= damage;
                 $("#enemyHealth").attr("style", "width: " + defender.stats["base health"] + "%");
-                $("#enemyHP").html(defender.stats["base health"]);
+                characterShake("#enemyChar");
+                $("#enemyCurrentHP").html(defender.stats["base health"]);
                 console.log("Attack was a hit");
-                $("#battleFeedback").text("Attack was a hit.");
+                $("#battleFeedback").text("Attack was a hit and did " + damage + "HP of damage!");
+
               }
             } else {
+                if(defender.stats["base health"] === 0) {
+                    $("#battleFeedback").text("Enemy Was Defeated!");
+                } else {
                 console.log("Attack was a miss");
-                $('#battleFeedback').text("Attack was a miss.");
+                $('#battleFeedback').text("Attack was a MISS!");
+            }
                 //console.log(defender.stats["base health"]);
             }
         } else {
             defender.stats["base health"] = 0;
-            $("#enemyHP").html("0");
+            $("#enemyCurrentHP").html("0");
             $("#enemyHealth").attr("style", "width: %");
             $('#battleFeedback').text("Defeated.");
+            characterDefeated("#enemyChar");
         }
     }
 
     $("#attack").on("click", function() {
-        basicAttack(characterOne, characterTwo);
+        basicAttack(enemyOne, characterSelected);
+        basicAttack(characterTwo, enemyOne);
         $("#enemyStats").empty();
         displayEnemyStats(characterOne);
     })
@@ -252,9 +292,6 @@ var roll = 0;
         //
         // }
     }
-
-
-
 
 
 
