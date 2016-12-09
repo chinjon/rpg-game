@@ -2,12 +2,15 @@
 font-family: 'Roboto', sans-serif;*/
 
 #mainSpace {
-  margin: 60px auto 30px auto;
+  margin: 20px auto 160px auto;
 }
 
+#charSelectMessage {
+  color: #c0392b;
+}
 
 #charactersSpace {
-  margin-top: 75px;
+  margin-top: 20px;
   height: 100px;
 }
 
@@ -15,6 +18,10 @@ font-family: 'Roboto', sans-serif;*/
 #charactersSpace {
   font-family: 'Inconsolata', monospace;
   font-size: 25px;
+}
+
+.characterPic {
+  margin-bottom: 15px;
 }
 
 .hightlightChar {
@@ -29,11 +36,14 @@ font-family: 'Roboto', sans-serif;*/
 
 .instructions {
   color: #c0392b;
+  margin-bottom: 15px;
 }
 
 body {
   font-size: 19px;
   font-family: 'Bungee', sans-serif;
+  /*background-image: url("../images/background.png");
+  background-size: auto;*/
 }
 
 .characterButtons {

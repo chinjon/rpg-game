@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
 var characterSelected = "characterOne";
+var userMadeSelection = false;
 console.log("Character selected: " + characterSelected);
 
     function hideSection(section) {
@@ -124,7 +125,7 @@ var roll = 0;
 
     function displayCharacterStats(character, area) {
       var size = Object.keys(character.stats).length;
-        $(area).html('<div><img src="' + character.image + '"></div>');
+        $(area).html('<div class="characterPic"><img src="' + character.image + '"></div>');
 
         for (var i = 0; i < size; i++) {
             var characterStat = $("<div>").addClass("characterStats").data("stat-point", character.stats[availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo(area);
@@ -134,7 +135,7 @@ var roll = 0;
     var enemyArray = ["enemyOne", "enemyTwo", "EnemyThree"];
 
     function displayEnemyStats(character, area) {
-        $(area).prepend('<div><img src="' + character.image + '"></div>');
+        $(area).prepend('<div class="characterPic"><img src="' + character.image + '"></div>');
         var size = Object.keys(character.stats).length;
         for (let i = 0; i < size; i++) {
             var characterStat = $("<div>").addClass("characterStats").data("stat-point", character["stats"][availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo(area);
@@ -160,6 +161,7 @@ var roll = 0;
             // might be too "crude" of a solution for highlighting only one character
             characterOne["character selected"] = true;
             characterTwo["character selected"] = false;
+            userMadeSelection = true;
             characterSelected = characterOne;
             console.log("Character selected: characterOne");
         });
@@ -169,22 +171,27 @@ var roll = 0;
             $("#characterOne").attr("class", "col-lg-3");
             characterTwo["character selected"] = true;
             characterOne["character selected"] = false;
+            userMadeSelection = true;
             characterSelected = characterTwo;
             console.log("Character selected: characterTwo");
         })
 
           // need to enact a CONDITIONAL TO FORCE A SELECTION
         $("#characterSelectConfirm").on("click", function () {
-            removeSection("#characterSelect");
-            showSection("#charactersSpace");
-            showBattle(characterSelected);
-            showSection("#healthBars");
-            showSection(".characterButtons");
+            if(userMadeSelection) {
+                removeSection("#characterSelect");
+                showSection("#charactersSpace");
+                showBattle(characterSelected);
+                showSection("#healthBars");
+                showSection(".characterButtons");
+            } else {
+                $("#charSelectMessage").html("Please Make A Selection!");
+            }
         })
     }
 
     function basicAttack(defender, attacker) {
-  
+
         roll = Math.floor(Math.random() * attacker.stats["base accuracy"]);
         // algorithm to determine if ability hit??
         console.log(roll);
@@ -192,24 +199,28 @@ var roll = 0;
         if (defender.stats["base health"] > 0) {
             if (roll > 40 && criticalHit > 25) {
 
-                if ((defender.stats["base health"] - attacker.stats["base attack"] * 2.5) < 0) {
+                if ((defender.stats["base health"] - attacker.stats["base attack"] * 2.5) <= 0) {
                     defender.stats["base health"] = 0;
+                    $("#enemyHP").html("0");
                     $("#enemyHealth").attr("style", "width: 0%");
                 } else {
 
                     defender.stats["base health"] -= attacker.stats["base attack"] * 2.5;
                     console.log("Attack was a critical hit");
                     $("#enemyHealth").attr("style", "width: " + defender.stats["base health"]+"%");
+                    $("#enemyHP").html(defender.stats["base health"]);
                     $("#battleFeedback").text("Attack was a hit.");
                 }
             } else if (roll > 40) {
-              if ((defender.stats["base health"] - attacker.stats["base attack"]) < 0) {
+              if ((defender.stats["base health"] - attacker.stats["base attack"]) <= 0) {
                 defender.stats["base health"] = 0;
+                $("#enemyHP").html("0");
                 $("#enemyHealth").attr("style", "width: 0%");
 
               } else {
                 defender.stats["base health"] -= attacker.stats["base attack"];
                 $("#enemyHealth").attr("style", "width: " + defender.stats["base health"] + "%");
+                $("#enemyHP").html(defender.stats["base health"]);
                 console.log("Attack was a hit");
                 $("#battleFeedback").text("Attack was a hit.");
               }
@@ -220,6 +231,7 @@ var roll = 0;
             }
         } else {
             defender.stats["base health"] = 0;
+            $("#enemyHP").html("0");
             $("#enemyHealth").attr("style", "width: %");
             $('#battleFeedback').text("Defeated.");
         }
