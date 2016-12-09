@@ -226,7 +226,7 @@ var roll = 0;
                     $("#enemyCurrentHP").html(defender.stats["base health"]);
                     $("#enemyHealth").attr("style", "width: 0%");
                     characterShake("#enemyChar");
-                    $("#battleFeedback").text("Attack was a critical hit and did " + damage + "HP of damage!");
+                    $("#battleFeedback").append("<div>Attack was a critical hit and did " + damage + "HP of damage!</div>");
                     characterDefeated("#enemyChar");
                 } else {
                     damage = attacker.stats["base attack"] * 2.5;
@@ -235,7 +235,7 @@ var roll = 0;
                     $("#enemyCurrentHP").html(defender.stats["base health"]);
                     characterShake("#enemyChar");
                     $("#enemyHealth").attr("style", "width: " + defender.stats["base health"]+"%");
-                    $("#battleFeedback").text("Attack was a critical hit and did " + damage + "HP of damage!");
+                    $("#battleFeedback").append("<div>Attack was a critical hit and did " + damage + "HP of damage!</div>");
 
                 }
             } else if (roll > 40) {
@@ -245,7 +245,7 @@ var roll = 0;
                 $("#enemyCurrentHP").html(defender.stats["base health"]);
                 characterShake("#enemyChar");
                 $("#enemyHealth").attr("style", "width: 0%");
-                $("#battleFeedback").text("Attack was a hit and did " + damage + "HP of damage!");
+                $("#battleFeedback").append("<div>Attack was a hit and did " + damage + "HP of damage!</div>");
                 characterDefeated("#enemyChar");
                 // need to comment with effect of this conditional
               } else {
@@ -255,25 +255,25 @@ var roll = 0;
                 characterShake("#enemyChar");
                 $("#enemyCurrentHP").html(defender.stats["base health"]);
                 console.log("Attack was a hit");
-                $("#battleFeedback").text("Attack was a hit and did " + damage + "HP of damage!");
+                $("#battleFeedback").append("<div>Attack was a hit and did " + damage + "HP of damage!</div>");
 
               }
             } else {
-                if(defender.stats["base health"] === 0) {
-                    $("#battleFeedback").text("Enemy Was Defeated!");
-                } else {
+              // WHEN ENEMY IS DEFEATED THE CODE WILL PUT OUT "ATTACK WAS A MISS" INSTEAD OF DEFEATED
                 console.log("Attack was a miss");
-                $('#battleFeedback').text("Attack was a MISS!");
-            }
+                $('#battleFeedback').append("<div>Attack was a MISS!</div>");
+
                 //console.log(defender.stats["base health"]);
             }
         } else {
             defender.stats["base health"] = 0;
             $("#enemyCurrentHP").html("0");
             $("#enemyHealth").attr("style", "width: %");
-            $('#battleFeedback').text("Defeated.");
+            $('#battleFeedback').html("Enemy Was Defeated.");
             characterDefeated("#enemyChar");
         }
+
+        // AFTER ENEMY[0] IS DEFEATED, SHIFT ENEMY[0] from ARRAY and ENEMY[1] === now ENEMY[0] is new enemy 
     }
 
     $("#attack").on("click", function() {
