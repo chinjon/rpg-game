@@ -15,77 +15,88 @@
 
 
     <div class="container" id="mainSpace">
-      <section id="characterSelect">
-        <div class="row instructions" id="charSelectInstructions">
-          <h1 class="col-lg-12">Please Select Your Character.</h1>
-        </div>
-        <div class="row">
-          <div class="col-lg-3 charSelect" id="characterOne">
-          </div>
-
-          <div class="col-lg-6 text-center">
-              <h1 id="charSelectMessage"></h1>
-          </div>
-
-          <div class="col-lg-3 charSelect" id="characterTwo">
-          </div>
-        </div>
-        <div class="row">
-        <div class="col-lg-12 text-center">
-          <button id="characterSelectConfirm" class="btn btn-info text-center">
-            Confirm Selection
-          </button>
-        </div>
-        </div>
-      </section>
-      <section  id="charactersSpace">
-        <div class="row" id="healthBars">
-              <div class="col-lg-3">
-                <h4>Player: <span id="playerCurrentHP"></span>/<span id="playerStartHP"></span></h4>
-                <div class="progress">
-                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" id="userHealth">
-              </div>
+        <section id="characterSelect">
+            <div class="row instructions" id="charSelectInstructions">
+                <h1 class="col-lg-12">Please Select Your Character.</h1>
             </div>
-            </div>
+            <div class="row">
+                <div class="col-lg-3 charSelect" id="characterOne">
+                </div>
 
+                <div class="col-lg-6 text-center">
+                    <h1 id="charSelectMessage"></h1>
+                </div>
 
-
-              <div class="col-lg-3 col-lg-offset-6">
-                <h4>Enemy: <span id="enemyCurrentHP"></span>/<span id="enemyStartHP"></span></h4>
-                <div class="progress">
-      <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" id="enemyHealth">
-      </div>
-    </div>
-
-              </div>
-            </div>
-        <div class="row"> <!-- NEED TO WRAP WITH LARGER DIV-->
-            <div class="col-lg-3" id="userChar">
-            </div>
-            <!-- BATTLE MESSAGE -->
-            <div class="col-lg-6 text-center">
-                <h1 id="battleFeedback">
-
-                </h1>
-            </div>
-            <!-- BATTLE MESSAGE -->
-            <div class="col-lg-3" id="enemyChar">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3">
-                <div id="characterStats">
-                  <!-- NEED TO FIGURE OUT BEST PLACE TO APPEND -->
-                  <button class="btn btn-danger characterButtons" id="attack">Attack</button>
-                  <button class="btn btn-info characterButtons" id="attack">Defend</button>
+                <div class="col-lg-3 charSelect" id="characterTwo">
                 </div>
             </div>
-            <div id="enemyStats" class="col-lg-3 col-lg-offset-6">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <button id="characterSelectConfirm" class="btn btn-info text-center">
+            Confirm Selection
+          </button>
+                </div>
             </div>
-        </div>
+        </section>
+        <section id="charactersSpace">
+            <div class="row" id="healthBars">
+                <div class="col-lg-3">
+                    <h4>Player: <span id="playerCurrentHP"></span>/<span id="playerStartHP"></span></h4>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" id="userHealth">
+                        </div>
+                    </div>
+                </div>
 
 
-      </section>
+
+                <div class="col-lg-3 col-lg-offset-6">
+                    <h4>Enemy: <span id="enemyCurrentHP"></span>/<span id="enemyStartHP"></span></h4>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" id="enemyHealth">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <!-- NEED TO WRAP WITH LARGER DIV-->
+                <div class="col-lg-3" id="userChar">
+                </div>
+                <!-- BATTLE MESSAGE -->
+                <div class="col-lg-6 text-center">
+                    <h1 id="battleFeedback">
+
+                </h1>
+                </div>
+                <!-- BATTLE MESSAGE -->
+                <div class="col-lg-3" id="enemyChar">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div id="characterStats">
+                        <!-- NEED TO FIGURE OUT BEST PLACE TO APPEND -->
+                        <button class="btn btn-danger characterButtons" id="attack">Attack</button>
+                        <button class="btn btn-info characterButtons" id="attack">Defend</button>
+                    </div>
+                </div>
+                <div id="enemyStats" class="col-lg-3 col-lg-offset-6">
+                </div>
+            </div>
+            <div class="row">
+              <!-- enemy queue -->
+                <div class="col-lg-3 col-lg-offset-9">
+                  <div class="col-lg-4">
+                  </div>
+                  <div class="col-lg-4">
+                  </div>
+                  <div class="col-lg-4">
+                  </div>
+                </div>
+            </div>
+
+        </section>
     </div>
 
 
