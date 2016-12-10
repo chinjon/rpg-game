@@ -3,8 +3,8 @@ $(document).ready(function() {
     var characterSelected = "characterOne";
     var userMadeSelection = false;
     var characterStartHP = characterSelected["start health"];
-    $("#playerStartHP").html(characterStartHP);
-
+    $("#playerStartHP").html(characterStartHP); // sets player's start HP
+    var characterAlive = true;
     function characterShake(character) {
         $(character).effect("shake");
     }
@@ -65,10 +65,10 @@ $(document).ready(function() {
         "name": "enemy one",
         "current enemy": false,
         "character defeated": false,
-        "start health": 50,
+        "start health": 100,
         "image": "http://placehold.it/250x250",
         "stats": {
-            "base health": 50,
+            "base health": 100,
             "base attack": 10,
             "base accuracy": 40
         }
@@ -91,10 +91,10 @@ $(document).ready(function() {
         "name": "enemy three",
         "current enemy": false,
         "character defeated": false,
-        "start health": 200,
+        "start health": 100,
         "image": "http://placehold.it/250x250",
         "stats": {
-            "base health": 200,
+            "base health": 100,
             "base attack": 30,
             "base accuracy": 75
         }
@@ -102,7 +102,7 @@ $(document).ready(function() {
     var enemyCount = 0
     var enemyArray = [enemyOne, enemyTwo, enemyThree];
     var currentEnemy = enemyArray[enemyCount];
-    var enemyStartHP = currentEnemy["start health"]
+    var enemyStartHP = currentEnemy["start health"]; // sets enemy's start HP
 
 
     // NEED TO OVERHAUL CONDITIONALS
@@ -117,10 +117,9 @@ $(document).ready(function() {
 
 
     function characterDefeated(character) {
-        enemyCount++;
-        //$(character).fadeOut("fast", function() {});
-        $("#enemyChar").empty();
-        displayEnemyStats(currentEnemy, "#enemyChar");
+        $("#battleFeedback").append("<div>The Game Will Now Reset</div");
+        console.log("Game will now refresh");
+        setInterval('window.location.reload()', 6000);
     }
 
     function displayEnemyStats(character, area) {
@@ -141,7 +140,10 @@ $(document).ready(function() {
         console.log(currentEnemy);
         displayEnemyStats(currentEnemy, "#enemyChar");
         //reset health bar to 100
-        // reset health info
+        $("#userHealth").attr("style", "width: " + player.stats["base health"] + "%");
+        // reset health info (text)
+        $("#enemyStartHP").html(enemyOne["start health"]);
+        $("#enemyCurrentHP").html(enemyOne.stats["base health"]);
     }
 
     function showBattle(characterSelected) {
@@ -206,6 +208,7 @@ $(document).ready(function() {
             $("#playerCurrentHP").html(0);
             characterShake("#userChar");
             $("#battleFeedback").html("You have been defeated!");
+            characterDefeated();
             // add a reset feature after player has been defeated/lost
           } else {
             player.stats["base health"] -= damage;
@@ -217,7 +220,9 @@ $(document).ready(function() {
           console.log("Enemy Missed!");
           missedAttackMessage();
         }
+
     }
+
 
 
     function basicAttack(enemy, player) {
@@ -260,43 +265,14 @@ $(document).ready(function() {
         if (currentEnemy["base health"] <= 0) {
             nextEnemy();
         }
+        if(characterSelected.stats["base health"] <= 0) {
+            characterDefeated;
+        };
     })
 
     characterSelect();
     // basicAttack(currentEnemy, characterSelected);
 
-    function enemyAttack(enemy) {
-        var roll = Math.floor(Math.random() * enemy.stats["base accuracy"]);
-        // if(roll > 30) {
-        //
-        // }
-    }
-
-
-
-    // defender.stats["base defense"] < attacker.stats["base attack"]
-    // NEED TO SWITCH PARAMETERS
-    // NEED TO MAKE AUTO ATTACK FOR COMPUTER
-
-    //
-    //
-    // displayCharacterStats(characterTwo, "#characterStats");
-    // displayEnemyStats(characterOne);
-    //
-
-
 
 
 })
-
-// var size = Object.keys(myObj).length; // captures the length of the object
-
-// function diceRoll() {
-//   var roll = Math.floor(Math.random() * 100); // algorithm to determine if ability hit??
-//   console.log(roll);
-// }
-// factor in accuracy somehow with a character accuracy stat
-
-// function critChance() {
-//   var criticalHit = Math.floor(Math.random() * attack.stats["critChance"];
-// }
