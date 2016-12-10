@@ -118,21 +118,30 @@ $(document).ready(function() {
 
     function characterDefeated(character) {
         enemyCount++;
-        $(character).fadeOut("fast", function() {});
+        //$(character).fadeOut("fast", function() {});
         $("#enemyChar").empty();
         displayEnemyStats(currentEnemy, "#enemyChar");
     }
 
     function displayEnemyStats(character, area) {
-        $(area).prepend('<div class="characterPic"><img src="' + character.image + '"></div>');
+        $(area).prepend('<div class="enemyPic enemyStats"><img src="' + character.image + '"></div>');
         var size = Object.keys(character.stats).length;
         for (let i = 0; i < size; i++) {
-            var characterStat = $("<div>").addClass("characterStats").data("stat-point", character["stats"][availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo(area);
+            var characterStat = $("<div>").addClass("enemyStats").data("stat-point", character["stats"][availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo(area);
         }
     }
+
     // switches enemy
     function nextEnemy() {
-
+        $(".enemyStats").remove();
+        enemyCount++;
+        console.log("#enemyChar has been emptied");
+        currentEnemy = enemyArray[enemyCount];
+        console.log(enemyCount);
+        console.log(currentEnemy);
+        displayEnemyStats(currentEnemy, "#enemyChar");
+        //reset health bar to 100
+        // reset health info
     }
 
     function showBattle(characterSelected) {
@@ -194,11 +203,14 @@ $(document).ready(function() {
           if((player.stats["base health"] - damage) <= 0) {
             player.stats["base helath"] = 0;
             $("#userHealth").attr("style", "width: 0%");
+            $("#playerCurrentHP").html(0);
             characterShake("#userChar");
             $("#battleFeedback").html("You have been defeated!");
+            // add a reset feature after player has been defeated/lost
           } else {
             player.stats["base health"] -= damage;
             $("#userHealth").attr("style", "width: " + player.stats["base health"] + "%");
+            $("#playerCurrentHP").html(player.stats["base health"]);
             $("#battleFeedback").html("<div>Attack was a hit and the Enemy did " + damage + "HP of damage!</div>");
           }
         } else {
@@ -219,8 +231,8 @@ $(document).ready(function() {
                 $("#enemyCurrentHP").html(enemy.stats["base health"]);
                 $("#enemyHealth").attr("style", "width: 0%");
                 characterShake("#enemyChar");
-                characterDefeated("#enemyChar");
                 $("#battleFeedback").html("<div>Enemy was defeated!</div>");
+                nextEnemy();
             } else {
                 enemy.stats["base health"] -= damage;
                 $("#enemyCurrentHP").html(enemy.stats["base health"]);
@@ -244,9 +256,9 @@ $(document).ready(function() {
     $("#attack").on("click", function() {
         basicAttack(currentEnemy, characterSelected);
         counterAttack(currentEnemy, characterSelected);
-        displayEnemyStats(characterSelected);
-        if (currentEnemy["start health"] <= 0) {
-          // erase #enemyChar divs
+        // displayEnemyStats(currentEnemy, "#enemyChar");
+        if (currentEnemy["base health"] <= 0) {
+            nextEnemy();
         }
     })
 
