@@ -23,6 +23,9 @@ $(document).ready(function() {
         $(section).show();
     }
 
+      function missedAttackMessage() {
+        $('#battleFeedback').html("<div>Attack was a MISS!</div>");
+      }
 
     hideSection("#healthBars");
     hideSection(".characterButtons");
@@ -42,12 +45,6 @@ $(document).ready(function() {
             "base health": 100,
             "base attack": 30,
             "base accuracy": 55
-        },
-        "levelUp": function() {
-            this.stats["base health"] += 10;
-            this.stats["base attack"] += 10;
-            this.stats["base defense"] += 3;
-            this.stats["base speed"] += 2;
         }
     }
 
@@ -61,15 +58,8 @@ $(document).ready(function() {
             "base health": 200,
             "base attack": 15,
             "base accuracy": 67
-        },
-        "levelUp": function() {
-            this.stats["base health"] += 25;
-            this.stats["base attack"] += 3;
-            this.stats["base defense"] += 6;
-            this.stats["base speed"] += 4;
         }
-
-    }
+          }
 
     var enemyOne = {
         "name": "enemy one",
@@ -109,9 +99,10 @@ $(document).ready(function() {
             "base accuracy": 75
         }
     }
-
-    var enemyStartHP = currentEnemy.["start health"]
-
+    var enemyCount = 0
+    var enemyArray = [enemyOne, enemyTwo, enemyThree];
+    var currentEnemy = enemyArray[enemyCount];
+    var enemyStartHP = currentEnemy["start health"]
 
 
     // NEED TO OVERHAUL CONDITIONALS
@@ -123,9 +114,7 @@ $(document).ready(function() {
             var characterStat = $("<div>").addClass("characterStats").data("stat-point", character.stats[availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo(area);
         }
     }
-    var enemyCount = 0
-    var enemyArray = [enemyOne, enemyTwo, enemyThree];
-    var currentEnemy = enemyArray[enemyCount];
+
 
     function characterDefeated(character) {
         enemyCount++;
@@ -140,6 +129,10 @@ $(document).ready(function() {
         for (let i = 0; i < size; i++) {
             var characterStat = $("<div>").addClass("characterStats").data("stat-point", character["stats"][availStats[i]]).html(availStats[i] + ": " + character.stats[availStats[i]]).appendTo(area);
         }
+    }
+    // switches enemy
+    function nextEnemy() {
+
     }
 
     function showBattle(characterSelected) {
@@ -193,13 +186,35 @@ $(document).ready(function() {
         })
     }
 
-    function basicAttack(enemy, attacker) {
-        var damage = attacker.stats["base attack"];
-        roll = Math.floor(Math.random() * attacker.stats["base accuracy"]);
+    function counterAttack(enemy, player) {
+        var damage = player.stats["base attack"];
+        roll = Math.floor(Math.random() * enemy.stats["base accuracy"]);
+        console.log("Enemy Roll: " + roll);
+        if(roll > 35) {
+          if((player.stats["base health"] - damage) <= 0) {
+            player.stats["base helath"] = 0;
+            $("#userHealth").attr("style", "width: 0%");
+            characterShake("#userChar");
+            $("#battleFeedback").html("You have been defeated!");
+          } else {
+            player.stats["base health"] -= damage;
+            $("#userHealth").attr("style", "width: " + player.stats["base health"] + "%");
+            $("#battleFeedback").html("<div>Attack was a hit and the Enemy did " + damage + "HP of damage!</div>");
+          }
+        } else {
+          console.log("Enemy Missed!");
+          missedAttackMessage();
+        }
+    }
+
+
+    function basicAttack(enemy, player) {
+        var damage = player.stats["base attack"];
+        roll = Math.floor(Math.random() * player.stats["base accuracy"]);
         // algorithm to determine if ability hit??
         console.log("Roll: " + roll);
         if (roll > 40) {
-            if ((enemy.stats["base health"] - attacker.stats["base attack"]) <= 0) {
+            if ((enemy.stats["base health"] - damage) <= 0) {
                 enemy.stats["base health"] = 0;
                 $("#enemyCurrentHP").html(enemy.stats["base health"]);
                 $("#enemyHealth").attr("style", "width: 0%");
@@ -217,26 +232,22 @@ $(document).ready(function() {
             }
         } else {
             console.log("Attack was a miss");
-            $('#battleFeedback').html("<div>Attack was a MISS!</div>");
+            missedAttackMessage();
 
         }
         // AFTER ENEMY[0] IS DEFEATED, SHIFT ENEMY[0] from ARRAY and ENEMY[1] === now ENEMY[0] is new enemy
     }
 
-    function enemyAttack(defender, attacker) {
-      var damage = attacker.stats["base attack"];
-      roll = Math.floor(Math.random() * attacker.stats["base accuracy"]);
-      console.log("Roll: " + roll);
-    }
 
-    function counterAttack(enemy, player) {
-        roll = Math.floor(Math.random() * enemy.stats["base accuracy"]);
-    }
+    // add an IF CONDITIONAL
 
     $("#attack").on("click", function() {
         basicAttack(currentEnemy, characterSelected);
-        $("#enemyStats").empty();
+        counterAttack(currentEnemy, characterSelected);
         displayEnemyStats(characterSelected);
+        if (currentEnemy["start health"] <= 0) {
+          // erase #enemyChar divs
+        }
     })
 
     characterSelect();
