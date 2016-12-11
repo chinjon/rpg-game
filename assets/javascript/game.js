@@ -9,6 +9,11 @@ $(document).ready(function() {
         $(character).effect("shake");
     }
 
+    var themeSong = new Howl({
+        src: ['./assets/audio/theme.mp3']
+      });
+
+
     console.log("Character selected: " + characterSelected);
 
     function hideSection(section) {
@@ -37,8 +42,6 @@ $(document).ready(function() {
 
     var characterOne = {
         "name": "character one",
-        "class": "fighter",
-        "ultimate meter": 0,
         "start health": 100,
         "image": "http://placehold.it/250x250",
         "stats": {
@@ -50,8 +53,6 @@ $(document).ready(function() {
 
     var characterTwo = {
         "name": "character one",
-        "class": "fighter",
-        "ultimate meter": 0,
         "start health": 200,
         "image": "http://placehold.it/250x250",
         "stats": {
@@ -63,8 +64,8 @@ $(document).ready(function() {
 
     var enemyOne = {
         "name": "enemy one",
-        "current enemy": false,
-        "character defeated": false,
+        // "current enemy": false,
+        // "character defeated": false,
         "start health": 100,
         "image": "http://placehold.it/250x250",
         "stats": {
@@ -76,8 +77,8 @@ $(document).ready(function() {
 
     var enemyTwo = {
         "name": "enemy two",
-        "current enemy": false,
-        "character defeated": false,
+        // "current enemy": false,
+        // "character defeated": false,
         "start health": 100,
         "image": "http://placehold.it/250x250",
         "stats": {
@@ -89,8 +90,8 @@ $(document).ready(function() {
 
     var enemyThree = {
         "name": "enemy three",
-        "current enemy": false,
-        "character defeated": false,
+        // "current enemy": false,
+        // "character defeated": false,
         "start health": 100,
         "image": "http://placehold.it/250x250",
         "stats": {
@@ -140,10 +141,10 @@ $(document).ready(function() {
         console.log(currentEnemy);
         displayEnemyStats(currentEnemy, "#enemyChar");
         //reset health bar to 100
-        $("#userHealth").attr("style", "width: " + player.stats["base health"] + "%");
+        $("#enemyHealth").attr("style", "width: " + 100 + "%");
         // reset health info (text)
-        $("#enemyStartHP").html(enemyOne["start health"]);
-        $("#enemyCurrentHP").html(enemyOne.stats["base health"]);
+        $("#enemyStartHP").html(currentEnemy["start health"]);
+        $("#enemyCurrentHP").html(currentEnemy.stats["base health"]);
     }
 
     function showBattle(characterSelected) {
@@ -155,6 +156,9 @@ $(document).ready(function() {
     }
 
     function characterSelect() {
+
+
+        // themeSong.play(); // plays theme song on load
 
         displayCharacterStats(characterOne, "#characterOne");
         displayCharacterStats(characterTwo, "#characterTwo");

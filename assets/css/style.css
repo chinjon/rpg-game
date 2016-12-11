@@ -20,6 +20,19 @@ font-family: 'Roboto', sans-serif;*/
   font-size: 25px;
 }
 
+#characterOne,
+#characterTwo {
+    color: #c0392b;
+    background-color: #95a5a6;
+    border-radius: 25px;
+    padding: 20px;
+    border: 5px solid #7f8c8d;
+}
+
+#logo {
+  width: 350px;
+}
+
 #battleFeedback {
   overflow: hidden;
 }
@@ -46,8 +59,7 @@ font-family: 'Roboto', sans-serif;*/
 body {
   font-size: 19px;
   font-family: 'Bungee', sans-serif;
-  /*background-image: url("../images/background.png");
-  background-size: auto;*/
+  background-image: url('../images/apt-5a.jpeg')
 }
 
 .characterButtons {
