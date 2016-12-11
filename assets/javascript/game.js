@@ -34,16 +34,18 @@ $(document).ready(function() {
 
     hideSection("#healthBars");
     hideSection(".characterButtons");
-
+    hideSection("#userChar");
+    hideSection("#enemyChar");
+    hideSection("#battleFeedback");
 
     var roll = 0;
 
     var availStats = ["base health", "base attack", "base accuracy"];
 
     var characterOne = {
-        "name": "character one",
+        "name": "Jerry",
         "start health": 100,
-        "image": "http://placehold.it/250x250",
+        "image": "./assets/images/jerry.jpeg",
         "stats": {
             "base health": 100,
             "base attack": 30,
@@ -52,9 +54,9 @@ $(document).ready(function() {
     }
 
     var characterTwo = {
-        "name": "character one",
+        "name": "Elaine",
         "start health": 200,
-        "image": "http://placehold.it/250x250",
+        "image": "./assets/images/elaine.jpg",
         "stats": {
             "base health": 200,
             "base attack": 15,
@@ -63,11 +65,11 @@ $(document).ready(function() {
           }
 
     var enemyOne = {
-        "name": "enemy one",
+        "name": "George",
         // "current enemy": false,
         // "character defeated": false,
         "start health": 100,
-        "image": "http://placehold.it/250x250",
+        "image": "./assets/images/george.jpg",
         "stats": {
             "base health": 100,
             "base attack": 10,
@@ -76,11 +78,11 @@ $(document).ready(function() {
     }
 
     var enemyTwo = {
-        "name": "enemy two",
+        "name": "Tim Whatley",
         // "current enemy": false,
         // "character defeated": false,
         "start health": 100,
-        "image": "http://placehold.it/250x250",
+        "image": "./assets/images/tim.png",
         "stats": {
             "base health": 100,
             "base attack": 20,
@@ -89,11 +91,11 @@ $(document).ready(function() {
     }
 
     var enemyThree = {
-        "name": "enemy three",
+        "name": "Newman",
         // "current enemy": false,
         // "character defeated": false,
         "start health": 100,
-        "image": "http://placehold.it/250x250",
+        "image": "./assets/images/newman.png",
         "stats": {
             "base health": 100,
             "base attack": 30,
@@ -149,6 +151,9 @@ $(document).ready(function() {
 
     function showBattle(characterSelected) {
         showSection("#charactersSpace");
+        showSection("#userChar");
+        showSection("#enemyChar");
+        showSection("#battleFeedback");
         displayCharacterStats(characterSelected, "#userChar");
         displayEnemyStats(enemyOne, "#enemyChar");
         $("#enemyStartHP").html(enemyOne["start health"]);
@@ -158,7 +163,7 @@ $(document).ready(function() {
     function characterSelect() {
 
 
-        // themeSong.play(); // plays theme song on load
+        themeSong.play(); // plays theme song on load
 
         displayCharacterStats(characterOne, "#characterOne");
         displayCharacterStats(characterTwo, "#characterTwo");
